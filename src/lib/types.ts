@@ -1,6 +1,6 @@
 /** Shared contracts for Tycon's local-first language-learning MVP. */
 
-export const LANGUAGES = ["id", "en", "zh-Hans"] as const;
+export const LANGUAGES = ["id", "en"] as const;
 export type LanguageCode = (typeof LANGUAGES)[number];
 
 /** IDs are stable, opaque strings; do not derive them from translated labels. */
@@ -16,7 +16,7 @@ export type LocalDate = string; // YYYY-MM-DD in the learner's local calendar
 export interface LanguageText {
   language: LanguageCode;
   text: string;
-  romanization?: string; // Optional pronunciation aid, notably pinyin for zh-Hans
+  romanization?: string; // Optional pronunciation aid
 }
 
 /** UI/catalog labels must exist for all three UI languages. */

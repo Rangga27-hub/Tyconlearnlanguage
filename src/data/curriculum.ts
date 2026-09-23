@@ -1,8 +1,8 @@
 /**
  * Stable, local seed content for Tycon's first beginner learning paths.
- * Translations are English glosses; `pronunciation` is supplied for Mandarin.
+ * Everyday seed vocabulary and short English practice phrases.
  */
-export type LanguageCode = "id" | "en" | "zh-Hans";
+export type LanguageCode = "id" | "en";
 
 export type VocabularyItem = {
   id: string;
@@ -118,21 +118,12 @@ const englishLessons = [
   makeLesson({ id: "en-beginner-08-help", language: "en", order: 8, title: "Simple help", objective: "Ask for help politely.", words: [{ id: "en-please", term: "please", translation: "a polite request word" }, { id: "en-yes", term: "yes", translation: "an affirmative answer" }, { id: "en-no", term: "no", translation: "a negative answer" }], phrase: { target: "Please help me.", translation: "Please help me." }, orderTokens: ["Please", "help", "me."], distractors: ["a color", "a place", "a number"] }),
 ] as const;
 
-const mandarinLessons = [
-  makeLesson({ id: "zh-hans-beginner-01-greetings", language: "zh-Hans", order: 1, title: "Greetings", objective: "Greet someone politely.", words: [{ id: "zh-nihao", term: "你好", translation: "hello", pronunciation: "nǐ hǎo" }, { id: "zh-zaoshanghao", term: "早上好", translation: "good morning", pronunciation: "zǎoshang hǎo" }, { id: "zh-xiexie", term: "谢谢", translation: "thank you", pronunciation: "xièxie" }], phrase: { target: "你好，你好吗？", translation: "Hello, how are you?", pronunciation: "nǐ hǎo, nǐ hǎo ma?" }, orderTokens: ["你", "好，", "你", "好", "吗？"], distractors: ["goodbye", "please", "friend"] }),
-  makeLesson({ id: "zh-hans-beginner-02-introductions", language: "zh-Hans", order: 2, title: "Introductions", objective: "Say your name.", words: [{ id: "zh-name", term: "名字", translation: "name", pronunciation: "míngzi" }, { id: "zh-i", term: "我", translation: "I", pronunciation: "wǒ" }, { id: "zh-you", term: "你", translation: "you", pronunciation: "nǐ" }], phrase: { target: "我叫安娜。", translation: "My name is Ana.", pronunciation: "wǒ jiào Ānnà." }, orderTokens: ["我", "叫", "安娜。"], distractors: ["city", "teacher", "water"] }),
-  makeLesson({ id: "zh-hans-beginner-03-numbers", language: "zh-Hans", order: 3, title: "Numbers", objective: "Recognize numbers one to three.", words: [{ id: "zh-one", term: "一", translation: "one", pronunciation: "yī" }, { id: "zh-two", term: "二", translation: "two", pronunciation: "èr" }, { id: "zh-three", term: "三", translation: "three", pronunciation: "sān" }], phrase: { target: "我有两本书。", translation: "I have two books.", pronunciation: "wǒ yǒu liǎng běn shū." }, orderTokens: ["我", "有", "两", "本", "书。"], distractors: ["four", "red", "tomorrow"] }),
-  makeLesson({ id: "zh-hans-beginner-04-food", language: "zh-Hans", order: 4, title: "Food and drink", objective: "Name everyday food and drink.", words: [{ id: "zh-water", term: "水", translation: "water", pronunciation: "shuǐ" }, { id: "zh-rice", term: "米饭", translation: "rice", pronunciation: "mǐfàn" }, { id: "zh-tea", term: "茶", translation: "tea", pronunciation: "chá" }], phrase: { target: "我喝水。", translation: "I drink water.", pronunciation: "wǒ hē shuǐ." }, orderTokens: ["我", "喝", "水。"], distractors: ["bread", "coffee", "milk"] }),
-  makeLesson({ id: "zh-hans-beginner-05-places", language: "zh-Hans", order: 5, title: "Places", objective: "Ask where a place is.", words: [{ id: "zh-school", term: "学校", translation: "school", pronunciation: "xuéxiào" }, { id: "zh-home", term: "家", translation: "home", pronunciation: "jiā" }, { id: "zh-market", term: "市场", translation: "market", pronunciation: "shìchǎng" }], phrase: { target: "学校在哪里？", translation: "Where is the school?", pronunciation: "xuéxiào zài nǎlǐ?" }, orderTokens: ["学校", "在", "哪里？"], distractors: ["when", "why", "who"] }),
-  makeLesson({ id: "zh-hans-beginner-06-colors", language: "zh-Hans", order: 6, title: "Colors", objective: "Describe a basic color.", words: [{ id: "zh-red", term: "红色", translation: "red", pronunciation: "hóngsè" }, { id: "zh-blue", term: "蓝色", translation: "blue", pronunciation: "lánsè" }, { id: "zh-white", term: "白色", translation: "white", pronunciation: "báisè" }], phrase: { target: "那本书是蓝色的。", translation: "That book is blue.", pronunciation: "nà běn shū shì lánsè de." }, orderTokens: ["那", "本", "书", "是", "蓝色", "的。"], distractors: ["green", "small", "warm"] }),
-  makeLesson({ id: "zh-hans-beginner-07-routine", language: "zh-Hans", order: 7, title: "Daily routine", objective: "Talk about a simple routine.", words: [{ id: "zh-eat", term: "吃", translation: "eat", pronunciation: "chī" }, { id: "zh-sleep", term: "睡觉", translation: "sleep", pronunciation: "shuìjiào" }, { id: "zh-work", term: "工作", translation: "work", pronunciation: "gōngzuò" }], phrase: { target: "我今天工作。", translation: "I work today.", pronunciation: "wǒ jīntiān gōngzuò." }, orderTokens: ["我", "今天", "工作。"], distractors: ["read", "walk", "listen"] }),
-  makeLesson({ id: "zh-hans-beginner-08-help", language: "zh-Hans", order: 8, title: "Simple help", objective: "Ask for help politely.", words: [{ id: "zh-help", term: "请", translation: "please", pronunciation: "qǐng" }, { id: "zh-yes", term: "是的", translation: "yes", pronunciation: "shì de" }, { id: "zh-no", term: "不", translation: "no / not", pronunciation: "bù" }], phrase: { target: "请帮帮我。", translation: "Please help me.", pronunciation: "qǐng bāngbang wǒ." }, orderTokens: ["请", "帮帮", "我。"], distractors: ["wait", "stop", "welcome"] }),
-] as const;
 
-export const curriculum: readonly LessonSeed[] = [...indonesianLessons, ...englishLessons, ...mandarinLessons];
 
-export const curriculumByLanguage: Readonly<Record<LanguageCode, readonly LessonSeed[]>> = {
+/** Only these seeds are reachable from the shipped generic course catalog. */
+export const curriculum: readonly LessonSeed[] = [...indonesianLessons, ...englishLessons];
+
+export const curriculumByLanguage: Readonly<Pick<Record<LanguageCode, readonly LessonSeed[]>, "id" | "en">> = {
   id: indonesianLessons,
   en: englishLessons,
-  "zh-Hans": mandarinLessons,
 };

@@ -1,11 +1,14 @@
 "use client";
 
+/* eslint-disable react-hooks/set-state-in-effect -- restore and persist browser-local pilot progress */
 import { useEffect, useRef, useState } from "react";
 import { ieltsPilot, type TrueFalseNotGiven } from "@/data/ielts-pilot";
 import { Icon } from "@/components/ui-icons";
 
 type Screen = "overview" | "quest" | "complete";
 type Response = { questionId: string; choice: TrueFalseNotGiven; correct: boolean };
+type PilotProgress = { version: 1; screen: Screen; index: number; choice: TrueFalseNotGiven | null; responses: Response[]; submitted: boolean; hearts: number; xp: number; best: number | null; attemptFinished: boolean };
+const PILOT_STORAGE_KEY = "tycon:ielts:v1";
 const choices: { value: TrueFalseNotGiven; label: string; help: string }[] = [
   { value: "TRUE", label: "True", help: "Sesuai dengan teks" },
   { value: "FALSE", label: "False", help: "Bertentangan dengan teks" },
@@ -24,12 +27,37 @@ export function IeltsJourney() {
   const [xp, setXp] = useState(0);
   const [best, setBest] = useState<number | null>(null);
   const [attemptFinished, setAttemptFinished] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+  const [storageWarning, setStorageWarning] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
   const question = ieltsPilot.questions[index];
   const isCorrect = choice === question.answer;
   const correctCount = responses.filter((response) => response.correct).length;
   const percent = Math.round((responses.length / total) * 100);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(PILOT_STORAGE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw) as PilotProgress;
+        const valid = saved.version === 1 && ["overview", "quest", "complete"].includes(saved.screen) && Number.isInteger(saved.index) && saved.index >= 0 && saved.index < total && Array.isArray(saved.responses) && saved.responses.every((response, i) => response.questionId === ieltsPilot.questions[i]?.id && ["TRUE", "FALSE", "NOT GIVEN"].includes(response.choice)) && (saved.choice === null || ["TRUE", "FALSE", "NOT GIVEN"].includes(saved.choice));
+        if (valid) {
+          setScreen(saved.screen); setIndex(saved.index); setChoice(saved.choice); setResponses(saved.responses); setSubmitted(saved.submitted); setHearts(saved.hearts); setXp(saved.xp); setBest(saved.best); setAttemptFinished(saved.attemptFinished);
+        }
+      }
+    } catch { setStorageWarning(true); }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      const progress: PilotProgress = { version: 1, screen, index, choice, responses, submitted, hearts, xp, best, attemptFinished };
+      localStorage.setItem(PILOT_STORAGE_KEY, JSON.stringify(progress));
+      setStorageWarning(false);
+    } catch { setStorageWarning(true); }
+  }, [hydrated, screen, index, choice, responses, submitted, hearts, xp, best, attemptFinished]);
 
   useEffect(() => {
     if (screen === "quest") {
@@ -54,6 +82,13 @@ export function IeltsJourney() {
     else setHearts((previous) => Math.max(0, previous - 1));
     setSubmitted(true);
   }
+  function resetProgress() {
+    if (!window.confirm("Hapus seluruh progres IELTS Journey di browser ini? Tindakan ini tidak dapat dibatalkan.")) return;
+    try { localStorage.removeItem(PILOT_STORAGE_KEY); setStorageWarning(false); }
+    catch { setStorageWarning(true); }
+    setScreen("overview"); setIndex(0); setChoice(null); setResponses([]); setSubmitted(false); setHearts(5); setXp(0); setBest(null); setAttemptFinished(false);
+  }
+
   function continueQuest() {
     if (!submitted) return;
     if (index === total - 1) {
@@ -67,8 +102,11 @@ export function IeltsJourney() {
     }
   }
 
+  if (!hydrated) return <main className="ielts-journey" lang="id"><p role="status">Membuka catatan perjalanan…</p></main>;
+
   return (
     <div className="ielts-journey" lang="id">
+      {storageWarning && <p className="ielts-storage-warning" role="alert">Progres mungkin tidak tersimpan karena penyimpanan browser tidak tersedia.</p>}
       <div className="ielts-page-head">
         <div className="ielts-identity"><span className="ielts-identity-mark" aria-hidden="true">✳</span><span>TYCON <span className="ielts-identity-slash">/</span> IELTS JOURNEY</span></div>
         <div className="ielts-lang-pill"><span aria-hidden="true">🇮🇩</span> Indonesia <span aria-hidden="true">→</span> <span aria-hidden="true">🇬🇧</span> English</div>
@@ -82,7 +120,7 @@ export function IeltsJourney() {
         <div className="ielts-section-title"><div><span className="ielts-kicker">PETA PERJALANAN</span><h2>Choose your checkpoint<span aria-hidden="true"> ✳</span></h2><p>Dua skill, satu langkah awal yang bisa kamu mulai sekarang.</p></div><span className="ielts-small-badge">01 / 02 TERSEDIA</span></div>
         <div className="ielts-overview-grid"><div className="ielts-skills"><article className="ielts-skill ielts-skill-reading"><div className="ielts-skill-icon" aria-hidden="true">📖</div><div className="ielts-skill-body"><span className="ielts-skill-meta">CHECKPOINT 01 <span>·</span> TERSEDIA</span><h3>Reading Lab</h3><p>Pelajari cara membedakan fakta, bantahan, dan informasi yang tidak ada dalam teks.</p><div className="ielts-skill-tags"><span>True / False / Not Given</span><span>{total} pertanyaan</span></div></div><button className="ielts-card-arrow" onClick={() => start()} aria-label={!attemptFinished && (responses.length > 0 || choice !== null) ? "Lanjutkan Reading Lab" : "Mulai Reading Lab"}><Icon name="arrow" size={20}/></button></article><article className="ielts-skill ielts-skill-listening"><div className="ielts-skill-icon" aria-hidden="true">🎧</div><div className="ielts-skill-body"><span className="ielts-skill-meta">CHECKPOINT 02 <span>·</span> SEGERA HADIR</span><h3>Listening Studio</h3><p>Ruang untuk melatih telinga dan menangkap ide utama. Audio berizin belum tersedia.</p><div className="ielts-skill-tags"><span>Belum tersedia</span></div></div><span className="ielts-locked" aria-label="Terkunci"><Icon name="lock" size={19}/></span></article></div>
           <aside className="ielts-overview-side"><div className="ielts-progress-card"><div className="ielts-progress-head"><span className="ielts-progress-icon" aria-hidden="true">✳</span><span>YOUR LITTLE WINS</span></div><h3>Keep growing,<br/><em>keep going.</em></h3><div className="ielts-stat-row"><span>🏅 <strong>{best === null ? "—" : `${best}/${total}`}</strong><small>skor terbaik</small></span><span>✨ <strong>{xp}</strong><small>XP latihan</small></span></div><div className="ielts-meter" role="progressbar" aria-label="Progres Reading Quest" aria-valuenow={best ?? 0} aria-valuemin={0} aria-valuemax={total}><span style={{ width: `${best === null ? 0 : (best / total) * 100}%` }}/></div><p>{!attemptFinished && (responses.length > 0 || choice !== null) ? `${responses.length} dari ${total} soal terjawab dalam quest aktif.` : best === null ? "Petualangan pertamamu menunggu." : `${best} dari ${total} jawaban benar pada percobaan terbaikmu.`}</p></div><div className="ielts-tip-card"><span aria-hidden="true">💡</span><div><strong>Trik kecil untuk mulai</strong><p>“Not Given” bukan berarti salah. Artinya teks tidak memberi cukup informasi.</p></div></div></aside></div>
-        <div className="ielts-disclaimer">Pilot belajar independen. Bukan tes resmi, tidak berafiliasi dengan IELTS maupun penerbit sumber. XP adalah hadiah latihan, bukan prediksi band score.</div>
+        <div className="ielts-disclaimer">Pilot belajar independen. Bukan tes resmi, tidak berafiliasi dengan IELTS maupun penerbit sumber. XP adalah hadiah latihan, bukan prediksi band score.</div><button className="ielts-reset-progress" onClick={resetProgress}>Reset local IELTS progress</button>
       </>}
 
       {screen === "quest" && <>

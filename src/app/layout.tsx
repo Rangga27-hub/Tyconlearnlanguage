@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Tycon — Little words. Big worlds.",
-  description: "A playful place to explore new languages, one little word at a time.",
+  description: "A local-first Bahasa Indonesia to English learning journal, with IELTS reading practice."
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

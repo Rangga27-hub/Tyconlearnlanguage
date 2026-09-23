@@ -1,6 +1,6 @@
 # IELTS Journey — Indonesian → English pilot
 
-**Status:** design only; supersedes `docs/architecture.md` for this pilot. No app/code/content migration has been implemented. This is independent IELTS preparation, **not affiliated with or endorsed by IELTS or the source publisher**. Target learner: Indonesian speaker preparing for Academic Reading and Listening. The only supported learning direction and UI locale for launch are `id` → `en` and Indonesian (English may appear inside English-language questions). Do not offer Mandarin or a language-pair picker.
+**Status:** launched pilot at `/ielts`; see `docs/architecture.md` for current production behavior. This is independent IELTS preparation, **not affiliated with or endorsed by IELTS or the source publisher**. Target learner: Indonesian speaker practicing English reading. The only active generic-course pair and pilot locale are Bahasa Indonesia (`id`) → English (`en`). Do not offer a language-pair picker or Mandarin. Reading is a short T/F/NG pilot; Listening remains visibly unavailable until original or separately licensed audio is approved. The pilot persists locally under `tycon:ielts:v1`.
 
 ## Source inventory and rights gate
 
@@ -10,21 +10,19 @@ The files are private and copyrighted. Possession/access is **not** a redistribu
 
 ## Pilot scope and journey
 
-One track called **IELTS Journey** with two skill checkpoints: Reading (skimming/detail) and Listening (gist/detail). Each checkpoint has two ~5-minute lessons, each with 4–6 original questions, short Indonesian coaching, explicit correction, and a review screen. Reading uses original 100–180-word passages; Listening uses newly recorded/licensed 30–90-second clips with matching authorized transcripts/captions. If audio clearance or production is incomplete, disable Listening with an honest “coming soon” state rather than substitute the private MP3s. No band-score claims from this small practice set; report correct/total and skill-specific feedback, not an IELTS band prediction. Preserve Tycon's calm notebook/checkpoint identity rather than copying any existing learning product.
+The launched pilot is one **Reading Quest** with six True/False/Not Given questions, Indonesian coaching, answer-by-answer feedback, a completion summary, and a review screen. The overview shows Listening as unavailable; no audio playback or transcript is shipped. XP/hearts are practice-game rewards, and the raw correct/total result is not a band prediction. The broader two-skill, multi-lesson journey remains future scope. Preserve Tycon's calm notebook/checkpoint identity rather than copying any existing learning product.
 
-Proposed App Router flow (implementation work, not routes present today):
+Production routes and current scope:
 
 | Route | Behavior |
 | --- | --- |
-| `/` | Explain independent pilot and local-only progress; choose **Start journey**. Returning learner goes to `/journey`. |
-| `/journey` | Two checkpoint cards, progress, resume the next unfinished lesson, accessible locked/unavailable Listening state if no approved audio. |
-| `/journey/[moduleId]` | Lesson list, estimated time and skill goal; unknown module returns to journey. |
-| `/practice/[lessonId]` | Passage/player above one question at a time; select/enter answer → Submit → feedback → Continue. Save draft and submitted feedback for reload. |
-| `/review/[sessionId]` | Completed attempt, explanation per question and retry; never unlock protected source media by guessing a URL. |
-| `/progress` | Attempt history, best raw score per lesson, practice streak; no band-score equivalence. |
-| `/settings` | Local progress reset, privacy/rights notice; no Mandarin or pair switcher. |
+| `/` | Fixed Indonesian → English onboarding for the generic course. |
+| `/learn` and `/map` | Everyday English dashboard/map with direct entry to IELTS Journey. |
+| `/ielts` | Pilot overview, six-question Reading Quest, answer feedback, completion and review. |
+| `/settings` | Generic-course goal and reset preferences; does not erase IELTS pilot progress. |
+| Pilot Listening | Explicitly marked unavailable; no MP3 is bundled or played. |
 
-Legacy `/learn` may redirect to `/journey`; old `/lesson/[lessonId]` must not load a stale multilingual item: show a migration notice/link instead. Use stable, namespaced IDs such as `ielts-reading-skim-01` and `ielts-listening-gist-01` (not titles or page numbers). No rewards required for the pilot; if retaining XP, label it a practice reward, never a test score.
+The implemented pilot currently uses one stable namespaced Reading Quest ID in `src/data/ielts-pilot.ts`. Pilot XP and hearts are practice-game rewards only; raw correct/total is not a band score. Browser back/forward and direct `/ielts` navigation are supported.
 
 ## Private OCR and page/track provenance workflow
 
@@ -58,7 +56,7 @@ Validate track IDs against the enumerated register (regex alone is insufficient)
 
 ## Publishable quiz contracts (proposed replacement, not `src/lib/types.ts` today)
 
-Do not stretch the multilingual `ChoiceExercise`/`OrderExercise` into IELTS forms. Implement versioned pilot contracts in a future code task. The following is the minimum wire shape; all learner-facing strings and references in this catalog must be original or independently licensed, and each item must pass the rights gate. Explanations and hints are in Indonesian, English passages/audio are explicitly `lang="en"`.
+The current pilot uses a compact True/False/Not Given catalog in `src/data/ielts-pilot.ts`, separate from generic choice/order lessons. This is a limited pilot, not the future full Reading/Listening catalog described by the schema below. Every shipped passage, prompt, explanation, and asset remains subject to the rights gate; the design schema below is a future expansion contract. Explanations and hints are in Indonesian, and English-language statements/evidence are marked `lang="en"`.
 
 ```ts
 type Skill = "reading" | "listening";
@@ -88,16 +86,16 @@ type PilotCatalog = { version: string; modules: { id: string; skill: Skill;
 
 Quiz phases remain `idle` → `question(draft)` → `feedback(submitted record)` → `complete(result)`. Only complete valid drafts submit; persist feedback before progressing, grade exactly once per item, and commit completion idempotently by session UUID. A session snapshots `catalogVersion`, `lessonId`, ordered `itemIds` and `stimulusId`; on changed/withdrawn content discard only the active session with a clear message. A review record stores answer, correctness, timestamps and item IDs, **not passage, transcript, audio, or private evidence**. Playback is optional for answering if the learner pauses, but provide controls, transcript/captions for original/cleared audio and no autoplay; never mark an unavailable player as a completed listening exercise.
 
-## Migration from the multilingual MVP
+## Production persistence and migration
 
-Existing `docs/architecture.md` and `src/lib/types.ts` still specify three languages, six pairs, and `tycon:v1`. They are **legacy**, not the contract for this pilot. Future implementation must remove `zh-Hans` from UI/catalog/validators/types, remove pair selection, and load only the new pilot catalog; do not mutate those files as part of this documentation-only change.
+The generic course retains `tycon:v1`; the IELTS pilot independently stores screen, question index, draft choice, submitted responses, hearts, practice XP, best raw score, and completion state at **`tycon:ielts:v1`**. Browser storage is accessed client-side only. If reading/writing storage fails, the UI continues in memory and warns that progress may be lost. The IELTS pilot never imports generic XP, attempts, streaks, or active quizzes. Generic-profile migration normalizes the active course to Indonesian → English and drops incompatible old course attempts; it does not delete the separate IELTS key. Resetting generic progress does not clear IELTS progress.
 
-Use a new localStorage envelope/key **`tycon:ielts:v1`** with `schemaVersion: 1`, pilot profile (`uiLanguage: "id"`, target `"en"`), completed sessions keyed by UUID, and optional active session. Parse and validate without SSR access to `window`; survive corrupt storage/quota denial with a recoverable in-memory mode. On first run inspect `tycon:v1` **read-only**: if its profile is `id`→`en`, offer to carry over only device profile ID and creation date/daily-goal preference after confirmation; otherwise create a fresh pilot profile. In every case **do not import** legacy exercise attempts, XP, streaks or active quiz (schemas/content/meaning differ); tell returning learners their old local record remains on this browser but is not included in IELTS Journey progress. Keep `tycon:v1` untouched so rollback does not lose data. Do not surface Mandarin choices, content, or legacy results in the pilot. Reset pilot progress clears only `tycon:ielts:v1`; a separate explicit opt-in action would be needed to delete legacy data. New attempts use namespaced lesson IDs, catalog version and idempotent session IDs; derive pilot raw scores/streak from committed pilot sessions alone.
+No private PDF or MP3 is in the app bundle, `public/`, or Git. The private source directory is not an asset host. OCR/import instructions are in the repository README and require prior rights clearance; extracted files must stay outside the repository. The current pilot content itself must still pass the product's rights review before public release.
 
 ## Release checks
 
 - Rights register authorizes each shipped asset and text, or it is original independently reviewed. A clean clone/build/deploy has **zero** private PDF, MP3, OCR, transcript or copied content. Searching client chunks/public assets finds no source track paths. Audio unavailable ⇒ Listening is unavailable, not secretly streamed.
 - Inventory QA confirms 91 physical pages **only after parser verification**, 24 + 21 audio tracks, unique disc-qualified IDs, no fabricated page↔track links, and human-reviewed mappings with valid bounds. Unmatched items remain marked unmapped; no source-derived material ships on a `candidate` mapping.
-- From an Indonesian fresh start, learner finishes a Reading lesson with choice, matching and short-answer, reviews feedback and refreshes mid-feedback without duplicate credit. With approved original/cleared audio, the same works for Listening with accessible player and captions.
-- A `zh-Hans` or other legacy profile cannot select a Mandarin course; old localStorage remains intact, no old XP becomes IELTS score, unknown/stale deep links recover. No app claims an IELTS band score or publisher endorsement.
-- At 320px/200% zoom, text reflows; buttons have 44px targets, visible focus and text feedback. Keyboard-only matching and audio controls work; passage/player and feedback are properly labelled; reduced-motion and contrast requirements from the prior architecture still apply.
+- The current browser pilot restores its selected answer, submitted feedback, question index, and completion after reload; it supports keyboard/touch response and review. Choice/matching/short-answer modules and audio are future scope, not current shipped functionality.
+- The learner-facing app exposes only Indonesian → English. Legacy XP is never treated as IELTS score; IELTS progress remains in its own localStorage key. No app claim implies an IELTS band score or publisher endorsement.
+- At 320px/200% zoom, text reflows; buttons have visible focus and text feedback. The current pilot uses native radio controls and labelled evidence/feedback regions. Audio and matching controls are not present in this release.

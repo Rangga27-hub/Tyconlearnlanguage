@@ -1,18 +1,16 @@
 import { curriculumByLanguage } from "@/data/curriculum";
-import { LANGUAGES } from "@/lib/types";
 import type { ActiveQuizState, ContentCatalog, Exercise, LanguageCode, Lesson, LocalDate, PersistedState, QuizAnswer, QuizEvent, QuizState, SessionResult } from "@/lib/types";
 
 export const STORAGE_KEY = "tycon:v1";
-export const languageNames: Record<LanguageCode, string> = { id: "Bahasa Indonesia", en: "English", "zh-Hans": "简体中文" };
+export const languageNames: Record<LanguageCode, string> = { id: "Bahasa Indonesia", en: "English" };
 
 const localizedLanguageNames: Record<LanguageCode, Record<LanguageCode, string>> = {
-  id: { id: "Bahasa Indonesia", en: "Indonesian", "zh-Hans": "印度尼西亚语" },
-  en: { id: "Bahasa Inggris", en: "English", "zh-Hans": "英语" },
-  "zh-Hans": { id: "Bahasa Mandarin Sederhana", en: "Simplified Mandarin", "zh-Hans": "简体中文" },
+  id: { id: "Bahasa Indonesia", en: "Indonesian" },
+  en: { id: "Bahasa Inggris", en: "English" },
 };
 const lessonTitles: Record<string, Record<LanguageCode, string>> = {
-  Greetings: { id: "Salam", en: "Greetings", "zh-Hans": "问候" },
-  Introductions: { id: "Perkenalan", en: "Introductions", "zh-Hans": "自我介绍" },
+  Greetings: { id: "Salam", en: "Greetings" },
+  Introductions: { id: "Perkenalan", en: "Introductions" },
 };
 const glosses: Record<Exclude<LanguageCode, "en">, Record<string, string>> = {
   id: {
@@ -23,23 +21,14 @@ const glosses: Record<Exclude<LanguageCode, "en">, Record<string, string>> = {
     "a person's identifying word": "kata yang mengidentifikasi seseorang", "belonging to me": "milik saya", "the person addressed": "orang yang diajak bicara",
     "a number": "sebuah angka", "a meal": "sebuah hidangan", "a building": "sebuah bangunan",
   },
-  "zh-Hans": {
-    hello: "你好", "good morning": "早上好", "thank you": "谢谢", goodbye: "再见", please: "请", friend: "朋友",
-    name: "名字", I: "我", you: "你", city: "城市", teacher: "老师", water: "水",
-    "a greeting": "问候语", "a morning greeting": "早上的问候语", "an expression of gratitude": "表示感谢的话",
-    "a farewell": "告别语", "a question about place": "关于地点的问题", "a color": "一种颜色",
-    "a person's identifying word": "用来称呼一个人的词", "belonging to me": "属于我的", "the person addressed": "正在交谈的对象",
-    "a number": "一个数字", "a meal": "一顿饭", "a building": "一座建筑",
-  },
 };
 const phrases: Record<string, Record<LanguageCode, string>> = {
-  "Hello, how are you?": { id: "Halo, apa kabar?", en: "Hello, how are you?", "zh-Hans": "你好，你好吗？" },
-  "My name is Ana.": { id: "Nama saya Ana.", en: "My name is Ana.", "zh-Hans": "我叫安娜。" },
+  "Hello, how are you?": { id: "Halo, apa kabar?", en: "Hello, how are you?" },
+  "My name is Ana.": { id: "Nama saya Ana.", en: "My name is Ana." },
 };
 const copy: Record<LanguageCode, { choose: string; order: string; match: string; arrange: string; means: (term: string, meaning: string) => string; build: (meaning: string) => string; phrase: (target: string, meaning: string) => string }> = {
   en: { choose: "Choose the best meaning.", order: "Build the phrase in the right order.", match: "Choose the matching meaning.", arrange: "Arrange the phrase.", means: (term, meaning) => `“${term}” means “${meaning}”.`, build: meaning => `Put the words in order: “${meaning}”`, phrase: (target, meaning) => `“${target}” means “${meaning}”.` },
   id: { choose: "Pilih arti yang paling tepat.", order: "Susun frasa dengan urutan yang benar.", match: "Pilih arti yang sesuai.", arrange: "Susun frasa ini.", means: (term, meaning) => `“${term}” berarti “${meaning}”.`, build: meaning => `Susun kata-kata untuk membentuk: “${meaning}”`, phrase: (target, meaning) => `“${target}” berarti “${meaning}”.` },
-  "zh-Hans": { choose: "请选择最合适的意思。", order: "请按正确顺序组成句子。", match: "请选择对应的意思。", arrange: "请排列这个句子。", means: (term, meaning) => `“${term}”的意思是“${meaning}”。`, build: meaning => `请排列词语组成：“${meaning}”`, phrase: (target, meaning) => `“${target}”的意思是“${meaning}”。` },
 };
 const label = (values: Record<LanguageCode, string>) => values;
 const utterance = (language: LanguageCode, text: string, romanization?: string) => ({ language, text, ...(romanization ? { romanization } : {}) });
@@ -57,24 +46,24 @@ const permutation = (order: readonly string[], tokens: readonly string[]) => {
 
 export function buildCatalog(): ContentCatalog {
   const courses: ContentCatalog["courses"] = [], units: ContentCatalog["units"] = [], lessons: Lesson[] = [], exercises: Exercise[] = [];
-  for (const target of LANGUAGES) for (const source of LANGUAGES) {
-    if (source === target) continue;
+  const source: LanguageCode = "id";
+  const target: LanguageCode = "en";
     const courseId = `course-${source}-${target}`, unitId = `unit-${source}-${target}`;
-    const pairLessons = curriculumByLanguage[target].slice(0, 2);
+    const pairLessons = curriculumByLanguage.en;
     courses.push({
       id: courseId,
       sourceLanguage: source,
       targetLanguage: target,
-      title: label({ id: `${localizedLanguageNames[source].id} → ${localizedLanguageNames[target].id}`, en: `${localizedLanguageNames[source].en} → ${localizedLanguageNames[target].en}`, "zh-Hans": `${localizedLanguageNames[source]["zh-Hans"]} → ${localizedLanguageNames[target]["zh-Hans"]}` }),
-      description: label({ id: "Perjalanan pertama melalui salam dan perkenalan.", en: "A first journey through greetings and introductions.", "zh-Hans": "从问候和自我介绍开始第一段旅程。" }),
+      title: label({ id: `${localizedLanguageNames[source].id} → ${localizedLanguageNames[target].id}`, en: `${localizedLanguageNames[source].en} → ${localizedLanguageNames[target].en}` }),
+      description: label({ id: "Perjalanan pertama melalui salam dan perkenalan.", en: "A first journey through greetings and introductions." }),
       unitIds: [unitId],
     });
     const lessonIds = pairLessons.map(seed => `${courseId}:${seed.id}`);
-    units.push({ id: unitId, courseId, title: label({ id: "Penemuan pertama", en: "First discoveries", "zh-Hans": "初次探索" }), lessonIds });
+    units.push({ id: unitId, courseId, title: label({ id: "Penemuan pertama", en: "First discoveries" }), lessonIds });
     pairLessons.forEach((seed, lessonIndex) => {
       const lessonId = lessonIds[lessonIndex];
       const exerciseIds = seed.exercises.map(item => `${lessonId}:${item.id}`);
-      lessons.push({ id: lessonId, courseId, unitId, title: lessonTitles[seed.title] ?? label({ id: seed.title, en: seed.title, "zh-Hans": seed.title }), exerciseIds });
+      lessons.push({ id: lessonId, courseId, unitId, title: lessonTitles[seed.title] ?? label({ id: seed.title, en: seed.title }), exerciseIds });
       const targetLang = target;
       const word = seed.vocabulary[0];
       const choiceSeed = seed.exercises[0];
@@ -96,7 +85,6 @@ export function buildCatalog(): ContentCatalog {
       const correctPhrase = permutation(correctOrder, shuffled);
       exercises.push({ id: exerciseIds[3], lessonId, kind: "order", instruction: utterance(source, copy[source].arrange), prompt: utterance(source, copy[source].build(phraseMeaning)), explanation: utterance(source, copy[source].phrase(seed.phrase.target, phraseMeaning)), tokens: shuffled.map((text, i) => ({ id: phraseIds[i], text: utterance(targetLang, text) })), correctTokenIds: correctPhrase.map(i => phraseIds[i]) });
     });
-  }
   return { version: "tycon-catalog-2", courses, units, lessons, exercises };
 }
 
@@ -104,7 +92,6 @@ export const catalog = buildCatalog();
 export const emptyState = (): PersistedState => ({ schemaVersion: 1, profile: null, completedSessions: {}, activeSession: null });
 let recoveryNotice = "";
 export function consumeRecoveryNotice() { const message = recoveryNotice; recoveryNotice = ""; return message; }
-const isLanguage = (value: unknown): value is LanguageCode => typeof value === "string" && (LANGUAGES as readonly string[]).includes(value);
 const isObject = (value: unknown): value is Record<string, unknown> => Boolean(value) && typeof value === "object" && !Array.isArray(value);
 const isDate = (value: unknown): value is string => typeof value === "string" && !Number.isNaN(Date.parse(value));
 const isLocalDate = (value: unknown): value is LocalDate => typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
@@ -159,8 +146,8 @@ export function readState(): PersistedState {
     if (!isObject(parsed) || parsed.schemaVersion !== 1 || !isObject(parsed.completedSessions)) throw new Error("invalid envelope");
     let profile: PersistedState["profile"] = null;
     if (parsed.profile !== null) {
-      if (!isObject(parsed.profile) || typeof parsed.profile.id !== "string" || !isLanguage(parsed.profile.sourceLanguage) || !isLanguage(parsed.profile.targetLanguage) || parsed.profile.sourceLanguage === parsed.profile.targetLanguage || !isDate(parsed.profile.createdAt)) throw new Error("invalid profile");
-      profile = { id: parsed.profile.id, sourceLanguage: parsed.profile.sourceLanguage, targetLanguage: parsed.profile.targetLanguage, uiLanguage: "en", dailyGoal: [8, 12, 20, 30].includes(Number(parsed.profile.dailyGoal)) ? Number(parsed.profile.dailyGoal) : 12, createdAt: parsed.profile.createdAt };
+      if (!isObject(parsed.profile) || typeof parsed.profile.id !== "string" || !(["id", "en", "zh-Hans"] as string[]).includes(String(parsed.profile.sourceLanguage)) || !(["id", "en", "zh-Hans"] as string[]).includes(String(parsed.profile.targetLanguage)) || parsed.profile.sourceLanguage === parsed.profile.targetLanguage || !isDate(parsed.profile.createdAt)) throw new Error("invalid profile");
+      profile = { id: parsed.profile.id, sourceLanguage: "id", targetLanguage: "en", uiLanguage: "en", dailyGoal: [8, 12, 20, 30].includes(Number(parsed.profile.dailyGoal)) ? Number(parsed.profile.dailyGoal) : 12, createdAt: parsed.profile.createdAt };
     }
     const completedSessions: PersistedState["completedSessions"] = {};
     for (const [id, result] of Object.entries(parsed.completedSessions)) {
