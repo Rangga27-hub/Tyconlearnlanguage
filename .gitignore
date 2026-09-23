@@ -13,6 +13,10 @@
 # testing
 /coverage
 
+# private licensed source material and local OCR derivatives
+/private-source/
+/private-audio/
+
 # next.js
 /.next/
 /out/
