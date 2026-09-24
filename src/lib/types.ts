@@ -16,10 +16,9 @@ export type LocalDate = string; // YYYY-MM-DD in the learner's local calendar
 export interface LanguageText {
   language: LanguageCode;
   text: string;
-  romanization?: string; // Optional pronunciation aid
 }
 
-/** UI/catalog labels must exist for all three UI languages. */
+/** UI/catalog labels exist for the active Indonesian and English locales. */
 export type LocalizedLabel = Record<LanguageCode, string>;
 
 export interface LearningPair {

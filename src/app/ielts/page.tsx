@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function IeltsPage() {
-  return <><div className="ielts-back-to-tycon"><Link href="/learn">← Tycon dashboard</Link></div><IeltsJourney /></>;
+  return <><div className="ielts-back-to-tycon"><Link href="/learn">← Dasbor Tycon</Link></div><IeltsJourney /></>;
 }

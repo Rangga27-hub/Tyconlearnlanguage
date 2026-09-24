@@ -8,7 +8,6 @@ export type VocabularyItem = {
   id: string;
   term: string;
   translation: string;
-  pronunciation?: string;
 };
 
 export type MultipleChoiceExercise = {
@@ -36,7 +35,6 @@ export type ListeningSimulationExercise = {
   type: "listening-simulation";
   prompt: string;
   simulatedAudioText: string;
-  pronunciation?: string;
   answer: string;
 };
 export type Exercise =
@@ -53,7 +51,7 @@ export type LessonSeed = {
   title: string;
   objective: string;
   vocabulary: readonly VocabularyItem[];
-  phrase: { target: string; translation: string; pronunciation?: string };
+  phrase: { target: string; translation: string };
   exercises: readonly Exercise[];
 };
 
@@ -91,7 +89,7 @@ const makeLesson = ({ words, phrase, orderTokens, distractors, ...source }: Less
     {
       id: `${source.id}-listen-01`, type: "listening-simulation",
       prompt: "Listen to the simulated audio and type what you hear.",
-      simulatedAudioText: phrase.target, pronunciation: phrase.pronunciation, answer: phrase.target,
+      simulatedAudioText: phrase.target, answer: phrase.target,
     },
   ],
 });

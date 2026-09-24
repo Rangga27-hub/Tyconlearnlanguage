@@ -31,7 +31,7 @@ const copy: Record<LanguageCode, { choose: string; order: string; match: string;
   id: { choose: "Pilih arti yang paling tepat.", order: "Susun frasa dengan urutan yang benar.", match: "Pilih arti yang sesuai.", arrange: "Susun frasa ini.", means: (term, meaning) => `“${term}” berarti “${meaning}”.`, build: meaning => `Susun kata-kata untuk membentuk: “${meaning}”`, phrase: (target, meaning) => `“${target}” berarti “${meaning}”.` },
 };
 const label = (values: Record<LanguageCode, string>) => values;
-const utterance = (language: LanguageCode, text: string, romanization?: string) => ({ language, text, ...(romanization ? { romanization } : {}) });
+const utterance = (language: LanguageCode, text: string) => ({ language, text });
 const localizeGloss = (text: string, language: LanguageCode) => language === "en" ? text : glosses[language][text] ?? text;
 const localizePhrase = (text: string, language: LanguageCode) => phrases[text]?.[language] ?? text;
 const permutation = (order: readonly string[], tokens: readonly string[]) => {
@@ -69,7 +69,7 @@ export function buildCatalog(): ContentCatalog {
       const choiceSeed = seed.exercises[0];
       const choiceOptions = choiceSeed.type === "multiple-choice" ? choiceSeed.options : [];
       const wordMeaning = localizeGloss(word.translation, source);
-      exercises.push({ id: exerciseIds[0], lessonId, kind: "choice", instruction: utterance(source, copy[source].choose), prompt: utterance(targetLang, word.term, word.pronunciation), explanation: utterance(source, copy[source].means(word.term, wordMeaning)), options: choiceOptions.map(option => ({ id: option.id, text: utterance(source, localizeGloss(option.text, source)) })), correctOptionId: choiceSeed.type === "multiple-choice" ? choiceSeed.correctOptionId : "a" });
+      exercises.push({ id: exerciseIds[0], lessonId, kind: "choice", instruction: utterance(source, copy[source].choose), prompt: utterance(targetLang, word.term), explanation: utterance(source, copy[source].means(word.term, wordMeaning)), options: choiceOptions.map(option => ({ id: option.id, text: utterance(source, localizeGloss(option.text, source)) })), correctOptionId: choiceSeed.type === "multiple-choice" ? choiceSeed.correctOptionId : "a" });
       const orderSeed = seed.exercises[1];
       const tokens = orderSeed.type === "word-order" ? orderSeed.tokens : [];
       const ids = tokens.map((_, i) => `token-${i}`);
@@ -78,7 +78,7 @@ export function buildCatalog(): ContentCatalog {
       exercises.push({ id: exerciseIds[1], lessonId, kind: "order", instruction: utterance(source, copy[source].order), prompt: utterance(source, copy[source].build(phraseMeaning)), explanation: utterance(source, copy[source].phrase(seed.phrase.target, phraseMeaning)), tokens: tokens.map((text, i) => ({ id: ids[i], text: utterance(targetLang, text) })), correctTokenIds: intended.map(i => ids[i]) });
       const match = seed.vocabulary;
       const matchMeaning = localizeGloss(match[1].translation, source);
-      exercises.push({ id: exerciseIds[2], lessonId, kind: "choice", instruction: utterance(source, copy[source].match), prompt: utterance(targetLang, match[1].term, match[1].pronunciation), explanation: utterance(source, copy[source].means(match[1].term, matchMeaning)), options: [{ id: "correct", text: utterance(source, matchMeaning) }, { id: "wrong-a", text: utterance(source, localizeGloss(match[0].translation, source)) }, { id: "wrong-b", text: utterance(source, localizeGloss(match[2].translation, source)) }], correctOptionId: "correct" });
+      exercises.push({ id: exerciseIds[2], lessonId, kind: "choice", instruction: utterance(source, copy[source].match), prompt: utterance(targetLang, match[1].term), explanation: utterance(source, copy[source].means(match[1].term, matchMeaning)), options: [{ id: "correct", text: utterance(source, matchMeaning) }, { id: "wrong-a", text: utterance(source, localizeGloss(match[0].translation, source)) }, { id: "wrong-b", text: utterance(source, localizeGloss(match[2].translation, source)) }], correctOptionId: "correct" });
       const shuffled = orderSeed.type === "word-order" ? orderSeed.tokens : [];
       const correctOrder = orderSeed.type === "word-order" ? orderSeed.correctOrder : [];
       const phraseIds = shuffled.map((_, i) => `phrase-${i}`);
@@ -146,7 +146,7 @@ export function readState(): PersistedState {
     if (!isObject(parsed) || parsed.schemaVersion !== 1 || !isObject(parsed.completedSessions)) throw new Error("invalid envelope");
     let profile: PersistedState["profile"] = null;
     if (parsed.profile !== null) {
-      if (!isObject(parsed.profile) || typeof parsed.profile.id !== "string" || !(["id", "en", "zh-Hans"] as string[]).includes(String(parsed.profile.sourceLanguage)) || !(["id", "en", "zh-Hans"] as string[]).includes(String(parsed.profile.targetLanguage)) || parsed.profile.sourceLanguage === parsed.profile.targetLanguage || !isDate(parsed.profile.createdAt)) throw new Error("invalid profile");
+      if (!isObject(parsed.profile) || typeof parsed.profile.id !== "string" || typeof parsed.profile.sourceLanguage !== "string" || !parsed.profile.sourceLanguage || typeof parsed.profile.targetLanguage !== "string" || !parsed.profile.targetLanguage || parsed.profile.sourceLanguage === parsed.profile.targetLanguage || !isDate(parsed.profile.createdAt)) throw new Error("invalid profile");
       profile = { id: parsed.profile.id, sourceLanguage: "id", targetLanguage: "en", uiLanguage: "en", dailyGoal: [8, 12, 20, 30].includes(Number(parsed.profile.dailyGoal)) ? Number(parsed.profile.dailyGoal) : 12, createdAt: parsed.profile.createdAt };
     }
     const completedSessions: PersistedState["completedSessions"] = {};

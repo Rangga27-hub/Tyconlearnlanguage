@@ -26,7 +26,6 @@ export type IeltsPilotLesson = {
     work: "Focus on Academic Skills for IELTS";
     module: "A";
     sourcePages: readonly number[];
-    verification: string;
     audio: null;
   };
 };
@@ -37,9 +36,9 @@ export const ieltsPilot: IeltsPilotLesson = {
   skill: "reading",
   format: "true-false-not-given",
   level: "IELTS foundation",
-  learningGoal: "Distinguish a contradiction from information the text does not state.",
+  learningGoal: "Bedakan informasi yang bertentangan dari informasi yang tidak disebutkan dalam teks.",
   instructions:
-    "Read the evidence notes. For each statement, choose TRUE when supported, FALSE when contradicted, and NOT GIVEN when the evidence does not answer it.",
+    "Baca catatan bukti. Pilih TRUE jika pernyataan didukung, FALSE jika bertentangan, dan NOT GIVEN jika bukti tidak menjawabnya.",
   evidenceSummary: [
     {
       paragraph: "A",
@@ -62,42 +61,42 @@ export const ieltsPilot: IeltsPilotLesson = {
       id: "ielts-reading-tfng-childhood-obesity-01-q1",
       statement: "More than one third of everyone in the United States is overweight.",
       answer: "NOT GIVEN",
-      rationale: "The source figure is specifically about children and adolescents, not the whole population.",
+      rationale: "Angka dalam sumber khusus membahas anak-anak dan remaja, bukan seluruh penduduk.",
       sourceParagraph: "A",
     },
     {
       id: "ielts-reading-tfng-childhood-obesity-01-q2",
       statement: "Asia and Europe have the same rate of childhood obesity.",
       answer: "FALSE",
-      rationale: "The source says Asia is behind Europe in its obesity statistics.",
+      rationale: "Sumber menyatakan bahwa statistik obesitas Asia berada di bawah Eropa.",
       sourceParagraph: "A",
     },
     {
       id: "ielts-reading-tfng-childhood-obesity-01-q3",
-      statement: "China's proportion of overweight or obese children is projected to reach 20% in ten years.",
+      statement: "China's proportion of overweight or obese children is projected to reach up to 20% in ten years.",
       answer: "TRUE",
-      rationale: "The source gives a current figure of up to 10% and says it is expected to double in a decade.",
+      rationale: "Sumber menyebut angka saat ini hingga 10% dan memperkirakannya menjadi dua kali lipat dalam satu dekade.",
       sourceParagraph: "A",
     },
     {
       id: "ielts-reading-tfng-childhood-obesity-01-q4",
       statement: "Childhood obesity is decreasing in some urban areas of Africa.",
       answer: "FALSE",
-      rationale: "The source describes a less marked upward trend in urbanised sub-Saharan Africa.",
+      rationale: "Sumber menggambarkan tren kenaikan yang lebih lambat di wilayah perkotaan Afrika sub-Sahara.",
       sourceParagraph: "A",
     },
     {
       id: "ielts-reading-tfng-childhood-obesity-01-q5",
       statement: "Foods high in starch, sugar, and fat can cause a sharp rise in insulin.",
       answer: "TRUE",
-      rationale: "This relationship is stated directly in the evidence.",
+      rationale: "Hubungan ini dinyatakan secara langsung dalam bukti.",
       sourceParagraph: "B",
     },
     {
       id: "ielts-reading-tfng-childhood-obesity-01-q6",
       statement: "Parents have the leading role in improving eating habits.",
       answer: "NOT GIVEN",
-      rationale: "Parents are named as one group in a joint effort, but no group is ranked as most important.",
+      rationale: "Orang tua disebut sebagai salah satu pihak dalam upaya bersama, tetapi tidak ada pihak yang dinyatakan paling utama.",
       sourceParagraph: "C",
     },
   ],
@@ -105,8 +104,6 @@ export const ieltsPilot: IeltsPilotLesson = {
     work: "Focus on Academic Skills for IELTS",
     module: "A",
     sourcePages: [6, 74],
-    verification:
-      "Exercise statements and the printed answer key were checked against OCR of PDF pages 6 and 74. Page 74 confirms: NG, F, T, F, T, NG.",
     // No file is listed: the supplied audio tracks are generically named and no track-to-exercise mapping was verified.
     audio: null,
   },
