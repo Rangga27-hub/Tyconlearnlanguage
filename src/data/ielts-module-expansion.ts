@@ -17,7 +17,7 @@ export type IeltsAudioTrack = {
 
 export type IeltsListeningPractice = {
   id: string;
-  module: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  module: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "I" | "J";
   title: string;
   bookPage: number;
   answerKeyPage: number;
@@ -29,7 +29,7 @@ export type IeltsListeningPractice = {
 
 export type IeltsGrammarPractice = {
   id: string;
-  module: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  module: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "I" | "J";
   title: string;
   bookPage: number;
   answerKeyPage: number;
@@ -39,7 +39,7 @@ export type IeltsGrammarPractice = {
 
 export type IeltsReadingPractice = {
   id: string;
-  module: "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  module: "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J";
   title: string;
   bookPage: number;
   answerKeyPage: number;
@@ -229,6 +229,38 @@ export const grammarPractices: readonly IeltsGrammarPractice[] = [
       { id: "grammar-h-q4", number: 4, prompt: "No longer existing", answer: "extinct", acceptedAnswers: ["extinct"] },
       { id: "grammar-h-q5", number: 5, prompt: "Breeding animals away from the wild", answer: "captive breeding", acceptedAnswers: ["captive breeding"] },
       { id: "grammar-h-q6", number: 6, prompt: "A tropical crop named in the key", answer: "cassava", acceptedAnswers: ["cassava"] },
+    ],
+  },
+  {
+    id: "ielts-grammar-module-i-language-review",
+    module: "I",
+    title: "Language Review I: tourism and transport",
+    bookPage: 122,
+    answerKeyPage: 87,
+    instructions: "Isi vocabulary Module I tentang tourism, transport, dan social impact.",
+    questions: [
+      { id: "grammar-i-q1", number: 1, prompt: "Two-wheeled transport", answer: "bicycle", acceptedAnswers: ["bicycle", "bike"] },
+      { id: "grammar-i-q2", number: 2, prompt: "Air vehicle", answer: "helicopter", acceptedAnswers: ["helicopter"] },
+      { id: "grammar-i-q3", number: 3, prompt: "Pollution from vehicles", answer: "exhaust fumes", acceptedAnswers: ["exhaust fumes"] },
+      { id: "grammar-i-q4", number: 4, prompt: "Crowded roads", answer: "traffic jams", acceptedAnswers: ["traffic jams", "jams"] },
+      { id: "grammar-i-q5", number: 5, prompt: "Dedicated routes for buses", answer: "bus lanes", acceptedAnswers: ["bus lanes"] },
+      { id: "grammar-i-q6", number: 6, prompt: "Travel over a large distance", answer: "long-distance travel", acceptedAnswers: ["long-distance travel", "long distance travel"] },
+    ],
+  },
+  {
+    id: "ielts-grammar-module-j-language-review",
+    module: "J",
+    title: "Language Review J: images and forensic science",
+    bookPage: 134,
+    answerKeyPage: 88,
+    instructions: "Isi vocabulary Module J tentang portraits, photography, dan DNA.",
+    questions: [
+      { id: "grammar-j-q1", number: 1, prompt: "Part of the face below the eye", answer: "cheek", acceptedAnswers: ["cheek"] },
+      { id: "grammar-j-q2", number: 2, prompt: "Front part of the head", answer: "forehead", acceptedAnswers: ["forehead"] },
+      { id: "grammar-j-q3", number: 3, prompt: "Muscles used to build a face", answer: "facial muscles", acceptedAnswers: ["facial muscles"] },
+      { id: "grammar-j-q4", number: 4, prompt: "Genetic material sample", answer: "DNA sample", acceptedAnswers: ["DNA sample", "dna sample"] },
+      { id: "grammar-j-q5", number: 5, prompt: "Make an image larger", answer: "to enlarge", acceptedAnswers: ["to enlarge", "enlarge"] },
+      { id: "grammar-j-q6", number: 6, prompt: "Digital image device", answer: "digital camera", acceptedAnswers: ["digital camera"] },
     ],
   },
 ];
@@ -558,5 +590,95 @@ export const moduleHListeningPage99: IeltsListeningPractice = {
     { id: "module-h-listening-q8", number: 8, prompt: "Question 8 option", answer: "C", acceptedAnswers: ["C", "c"] },
     { id: "module-h-listening-q9", number: 9, prompt: "Question 9 option", answer: "B", acceptedAnswers: ["B", "b"] },
     { id: "module-h-listening-q10", number: 10, prompt: "Question 10 option", answer: "A", acceptedAnswers: ["A", "a"] },
+  ],
+};
+
+export const moduleIReadingPage112: IeltsReadingPractice = {
+  id: "ielts-reading-module-i-page-112-hydrogen-buses",
+  module: "I",
+  title: "Reading Lab: hydrogen bus experiment",
+  bookPage: 112,
+  answerKeyPage: 86,
+  instructions: "Latihan ringkas dari Module I Reading tentang eksperimen bus hydrogen dan transport bersih.",
+  evidenceSummary: [
+    "The text describes a European experiment involving buses that are non-polluting and use renewable energy sources.",
+    "The answer key highlights hydrogen, fuel cells, wind power, renewable energy, and on-site hydrogen production.",
+    "Several questions concern participating cities, congestion, infrastructure, and geographical conditions.",
+  ],
+  questions: [
+    { id: "module-i-reading-q1", number: 1, prompt: "What region is the bus experiment in?", answer: "Europe", acceptedAnswers: ["Europe"] },
+    { id: "module-i-reading-q2", number: 2, prompt: "How many cities participate?", answer: "nine", acceptedAnswers: ["nine", "9"] },
+    { id: "module-i-reading-q3", number: 3, prompt: "What fuel is central to the experiment?", answer: "hydrogen", acceptedAnswers: ["hydrogen"] },
+    { id: "module-i-reading-q4", number: 4, prompt: "Which renewable source is mentioned?", answer: "wind power", acceptedAnswers: ["wind power"] },
+    { id: "module-i-reading-q5", number: 5, prompt: "Where is hydrogen produced?", answer: "on-site", acceptedAnswers: ["on-site", "on site"] },
+    { id: "module-i-reading-q6", number: 6, prompt: "What traffic problem is named?", answer: "congested traffic", acceptedAnswers: ["congested traffic", "traffic congestion"] },
+  ],
+};
+
+export const moduleJReadingPage126: IeltsReadingPractice = {
+  id: "ielts-reading-module-j-page-126-dna-images",
+  module: "J",
+  title: "Reading Lab: DNA and forensic images",
+  bookPage: 126,
+  answerKeyPage: 88,
+  instructions: "Latihan ringkas dari Module J Reading tentang DNA, forensic science, dan riset eye colour.",
+  evidenceSummary: [
+    "The answer key references DNA, forensics, DNAprint Genomics, University College London, University of Konstanz, and Liberty.",
+    "One part discusses genetic research into eye colour and how DNA can support identification.",
+    "Question formats include short answer, matching, and summary completion.",
+  ],
+  questions: [
+    { id: "module-j-reading-q1", number: 1, prompt: "Which scientific material is central to the text?", answer: "DNA", acceptedAnswers: ["DNA", "dna"] },
+    { id: "module-j-reading-q2", number: 2, prompt: "Which field applies DNA to criminal identification?", answer: "forensics", acceptedAnswers: ["forensics", "forensic science"] },
+    { id: "module-j-reading-q3", number: 3, prompt: "What company is listed in the answer key?", answer: "DNAprint Genomics", acceptedAnswers: ["DNAprint Genomics"] },
+    { id: "module-j-reading-q4", number: 4, prompt: "Which UK university is listed?", answer: "University College London", acceptedAnswers: ["University College London", "UCL"] },
+    { id: "module-j-reading-q5", number: 5, prompt: "Which German university is listed?", answer: "University of Konstanz", acceptedAnswers: ["University of Konstanz", "Konstanz"] },
+    { id: "module-j-reading-q6", number: 6, prompt: "Which human rights group is listed?", answer: "Liberty", acceptedAnswers: ["Liberty"] },
+  ],
+};
+
+export const moduleIListeningPage117: IeltsListeningPractice = {
+  id: "ielts-listening-module-i-page-117-tourism-impact",
+  module: "I",
+  title: "Listening Studio: tourism and host communities",
+  bookPage: 117,
+  answerKeyPage: 86,
+  sourceNote: "Focus on Academic Skills for IELTS, Module I, Focus on listening page 117. Audio mapping: CD2 Track 14.",
+  instructions: "Dengarkan lecture tentang tourism dan host communities. Jawab outline dan istilah kunci.",
+  tracks: [{ id: "cd2-t14", path: "/audio/ielts/module-i/page-117/cd2-track-14.mp3", label: "CD2 Track 14", role: "Questions 1–10", durationSeconds: 411.4 }],
+  questions: [
+    { id: "module-i-listening-q1", number: 1, prompt: "What model is discussed?", answer: "Irridex", acceptedAnswers: ["Irridex", "Irritation Index"] },
+    { id: "module-i-listening-q2", number: 2, prompt: "First stage label", answer: "euphoria", acceptedAnswers: ["euphoria"] },
+    { id: "module-i-listening-q3", number: 3, prompt: "One early response to tourists", answer: "novelty", acceptedAnswers: ["novelty"] },
+    { id: "module-i-listening-q4", number: 4, prompt: "Benefit in the second stage", answer: "economic benefits", acceptedAnswers: ["economic benefits", "economic benefit"] },
+    { id: "module-i-listening-q5", number: 5, prompt: "A problem caused by tourism development", answer: "congestion", acceptedAnswers: ["congestion"] },
+    { id: "module-i-listening-q6", number: 6, prompt: "Relationships can become very ...", answer: "negative", acceptedAnswers: ["negative"] },
+    { id: "module-i-listening-q7", number: 7, prompt: "Traditional what may be revitalised?", answer: "crafts/skills", acceptedAnswers: ["crafts/skills", "traditional crafts", "traditional skills"] },
+    { id: "module-i-listening-q8", number: 8, prompt: "Tourism can create openings for ...", answer: "women", acceptedAnswers: ["women"] },
+    { id: "module-i-listening-q9", number: 9, prompt: "Tourism workers may acquire new ...", answer: "languages", acceptedAnswers: ["languages", "new languages"] },
+    { id: "module-i-listening-q10", number: 10, prompt: "Final stage attitude in Doxey's model", answer: "antagonism", acceptedAnswers: ["antagonism"] },
+  ],
+};
+
+export const moduleJListeningPage124: IeltsListeningPractice = {
+  id: "ielts-listening-module-j-page-124-fayum-portraits",
+  module: "J",
+  title: "Listening Studio: Fayum portraits",
+  bookPage: 124,
+  answerKeyPage: 87,
+  sourceNote: "Focus on Academic Skills for IELTS, Module J, Focus on listening page 124. Audio mapping: CD2 Track 15.",
+  instructions: "Dengarkan lecture art history tentang Fayum portraits dan facial reconstruction.",
+  tracks: [{ id: "cd2-t15", path: "/audio/ielts/module-j/page-124/cd2-track-15.mp3", label: "CD2 Track 15", role: "Questions 1–10", durationSeconds: 402.3 }],
+  questions: [
+    { id: "module-j-listening-q1", number: 1, prompt: "Which ancient civilisation is mentioned with Rome?", answer: "Greece", acceptedAnswers: ["Greece"] },
+    { id: "module-j-listening-q2", number: 2, prompt: "Where was the picture placed on the mummy?", answer: "over the face", acceptedAnswers: ["over the face"] },
+    { id: "module-j-listening-q3", number: 3, prompt: "What material was applied with a spatula?", answer: "wax", acceptedAnswers: ["wax"] },
+    { id: "module-j-listening-q4", number: 4, prompt: "When were the portraits thought to be painted?", answer: "during life", acceptedAnswers: ["during life", "in life", "during lifetime", "in lifetime"] },
+    { id: "module-j-listening-q5", number: 5, prompt: "The portraits were more ... than mummy casings", answer: "realistic", acceptedAnswers: ["realistic", "more realistic"] },
+    { id: "module-j-listening-q6", number: 6, prompt: "Where may portraits have hung?", answer: "inside the houses", acceptedAnswers: ["inside the houses", "in the houses"] },
+    { id: "module-j-listening-q7", number: 7, prompt: "Question 7 option", answer: "B", acceptedAnswers: ["B", "b"] },
+    { id: "module-j-listening-q8", number: 8, prompt: "Question 8 option", answer: "A", acceptedAnswers: ["A", "a"] },
+    { id: "module-j-listening-q9", number: 9, prompt: "Question 9 option", answer: "C", acceptedAnswers: ["C", "c"] },
+    { id: "module-j-listening-q10", number: 10, prompt: "Question 10 option", answer: "A", acceptedAnswers: ["A", "a"] },
   ],
 };
