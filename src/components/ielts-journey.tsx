@@ -246,6 +246,14 @@ export function IeltsJourney() {
 
   return (
     <main className="ielts-journey" lang="id">
+      <div className="ielts-bg-monsters" aria-hidden="true">
+        <span className="ielts-bg-bug bg-bug-a"><i/><b/><em/></span>
+        <span className="ielts-bg-bug bg-bug-b"><i/><b/><em/></span>
+        <span className="ielts-bg-bug bg-bug-c"><i/><b/><em/></span>
+        <span className="ielts-bg-bug bg-bug-d"><i/><b/><em/></span>
+        <span className="ielts-bg-bug bg-bug-e"><i/><b/><em/></span>
+        <span className="ielts-bg-bug bg-bug-f"><i/><b/><em/></span>
+      </div>
       {storageWarning && <p className="ielts-storage-warning" role="alert">Progres mungkin tidak tersimpan karena penyimpanan browser tidak tersedia.</p>}
       {recoveryNotice && <p className="ielts-storage-warning" role="status">{recoveryNotice}</p>}
       <div className="ielts-page-head">
