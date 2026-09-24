@@ -67,7 +67,7 @@ export default function TyconApp({ initialView = "learn", requestedLessonId, sho
     setData(saved);
     setNotice(message);
     setHydrated(true);
-  }, [initialView, requestedLessonId, router]);
+  }, [initialView, requestedLessonId, router, showEntryPrompt]);
   useEffect(() => {
     if (!hydrated) return;
     setView(initialView);
