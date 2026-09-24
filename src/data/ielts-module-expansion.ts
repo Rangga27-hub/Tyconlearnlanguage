@@ -17,7 +17,7 @@ export type IeltsAudioTrack = {
 
 export type IeltsListeningPractice = {
   id: string;
-  module: "A" | "B" | "C" | "D" | "E" | "F";
+  module: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
   title: string;
   bookPage: number;
   answerKeyPage: number;
@@ -29,7 +29,7 @@ export type IeltsListeningPractice = {
 
 export type IeltsGrammarPractice = {
   id: string;
-  module: "A" | "B" | "C" | "D" | "E" | "F";
+  module: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
   title: string;
   bookPage: number;
   answerKeyPage: number;
@@ -39,7 +39,7 @@ export type IeltsGrammarPractice = {
 
 export type IeltsReadingPractice = {
   id: string;
-  module: "B" | "C" | "D" | "E" | "F";
+  module: "B" | "C" | "D" | "E" | "F" | "G" | "H";
   title: string;
   bookPage: number;
   answerKeyPage: number;
@@ -197,6 +197,38 @@ export const grammarPractices: readonly IeltsGrammarPractice[] = [
       { id: "grammar-f-q5", number: 5, prompt: "A unit of learning", answer: "class", acceptedAnswers: ["class"] },
       { id: "grammar-f-q6", number: 6, prompt: "Learning done by accessing resources yourself", answer: "self-access centre", acceptedAnswers: ["self-access centre", "self-access center"] },
       { id: "grammar-f-q7", number: 7, prompt: "Academic topics studied", answer: "subjects", acceptedAnswers: ["subjects", "subject"] },
+    ],
+  },
+  {
+    id: "ielts-grammar-module-g-language-review",
+    module: "G",
+    title: "Language Review G: ICT and media",
+    bookPage: 98,
+    answerKeyPage: 84,
+    instructions: "Isi vocabulary seputar communication technology dan media.",
+    questions: [
+      { id: "grammar-g-q1", number: 1, prompt: "Information and communication technologies", answer: "ICTs", acceptedAnswers: ["ICTs", "ICT"] },
+      { id: "grammar-g-q2", number: 2, prompt: "Electronic mail", answer: "e-mail", acceptedAnswers: ["e-mail", "email"] },
+      { id: "grammar-g-q3", number: 3, prompt: "Global web system", answer: "World Wide Web", acceptedAnswers: ["World Wide Web", "web"] },
+      { id: "grammar-g-q4", number: 4, prompt: "Gap between people with and without digital access", answer: "Digital Divide", acceptedAnswers: ["Digital Divide", "digital divide"] },
+      { id: "grammar-g-q5", number: 5, prompt: "Phone support workplaces", answer: "call centres", acceptedAnswers: ["call centres", "call centers"] },
+      { id: "grammar-g-q6", number: 6, prompt: "A named low-cost computer", answer: "Simputer", acceptedAnswers: ["Simputer"] },
+    ],
+  },
+  {
+    id: "ielts-grammar-module-h-language-review",
+    module: "H",
+    title: "Language Review H: GM crops and ecology",
+    bookPage: 104,
+    answerKeyPage: 85,
+    instructions: "Isi vocabulary Module H tentang GM crops, ecology, dan conservation.",
+    questions: [
+      { id: "grammar-h-q1", number: 1, prompt: "Genetically modified crops", answer: "GM crops", acceptedAnswers: ["GM crops", "genetically modified crops"] },
+      { id: "grammar-h-q2", number: 2, prompt: "Plant dust used in reproduction", answer: "pollen", acceptedAnswers: ["pollen"] },
+      { id: "grammar-h-q3", number: 3, prompt: "Chemical used to kill weeds", answer: "herbicide", acceptedAnswers: ["herbicide"] },
+      { id: "grammar-h-q4", number: 4, prompt: "No longer existing", answer: "extinct", acceptedAnswers: ["extinct"] },
+      { id: "grammar-h-q5", number: 5, prompt: "Breeding animals away from the wild", answer: "captive breeding", acceptedAnswers: ["captive breeding"] },
+      { id: "grammar-h-q6", number: 6, prompt: "A tropical crop named in the key", answer: "cassava", acceptedAnswers: ["cassava"] },
     ],
   },
 ];
@@ -404,5 +436,127 @@ export const moduleFListeningPage76: IeltsListeningPractice = {
     { id: "module-f-listening-q8", number: 8, prompt: "Matching answer 8", answer: "F", acceptedAnswers: ["F", "f"] },
     { id: "module-f-listening-q9", number: 9, prompt: "Matching answer 9", answer: "E", acceptedAnswers: ["E", "e"] },
     { id: "module-f-listening-q10", number: 10, prompt: "Matching answer 10", answer: "G", acceptedAnswers: ["G", "g"] },
+  ],
+};
+
+export const moduleGReadingPage88: IeltsReadingPractice = {
+  id: "ielts-reading-module-g-page-88-ict",
+  module: "G",
+  title: "Reading Lab: communication technology",
+  bookPage: 88,
+  answerKeyPage: 83,
+  instructions: "Latihan ringkas dari Module G Reading tentang information and communication technologies.",
+  evidenceSummary: [
+    "The text discusses information and communication technologies, e-mail, the World Wide Web, and access to digital resources.",
+    "It contrasts benefits for economics, health, education, and government with concerns such as the digital divide.",
+    "The answer key references the Information Village Project and Simputer as examples.",
+  ],
+  questions: [
+    { id: "module-g-reading-q1", number: 1, prompt: "Which divide is mentioned as a key issue?", answer: "Digital Divide", acceptedAnswers: ["Digital Divide", "digital divide"] },
+    { id: "module-g-reading-q2", number: 2, prompt: "Which project is named in the answer key?", answer: "Information Village Project", acceptedAnswers: ["Information Village Project"] },
+    { id: "module-g-reading-q3", number: 3, prompt: "Which low-cost computer initiative is named?", answer: "Simputer", acceptedAnswers: ["Simputer"] },
+    { id: "module-g-reading-q4", number: 4, prompt: "Which economic area is referenced?", answer: "Indian economy", acceptedAnswers: ["Indian economy"] },
+    { id: "module-g-reading-q5", number: 5, prompt: "Which service industry appears in the key?", answer: "call centres", acceptedAnswers: ["call centres", "call centers"] },
+    { id: "module-g-reading-q6", number: 6, prompt: "What web technology is explicitly mentioned?", answer: "World Wide Web", acceptedAnswers: ["World Wide Web", "the World Wide Web"] },
+  ],
+};
+
+export const moduleHReadingPage103: IeltsReadingPractice = {
+  id: "ielts-reading-module-h-page-103-gm-crops",
+  module: "H",
+  title: "Reading Lab: GM crops debate",
+  bookPage: 103,
+  answerKeyPage: 85,
+  instructions: "Latihan ringkas dari Module H Reading tentang arguments for and against GM technology.",
+  evidenceSummary: [
+    "The text concerns GM technology and includes arguments for and against GM crops.",
+    "The answer key notes that the writer is against GM crops and recommends more research before more crops are planted.",
+    "Key terms include pollen, chemical pollution, herbicide, disease, and cassava.",
+  ],
+  questions: [
+    { id: "module-h-reading-q1", number: 1, prompt: "What technology is debated in the text?", answer: "GM technology", acceptedAnswers: ["GM technology", "genetic modification", "GM crops"] },
+    { id: "module-h-reading-q2", number: 2, prompt: "Is the writer for or against GM crops?", answer: "against", acceptedAnswers: ["against", "against GM crops"] },
+    { id: "module-h-reading-q3", number: 3, prompt: "What does the writer recommend before more crops are planted?", answer: "more research", acceptedAnswers: ["more research", "research"] },
+    { id: "module-h-reading-q4", number: 4, prompt: "What plant material is listed in the key?", answer: "pollen", acceptedAnswers: ["pollen"] },
+    { id: "module-h-reading-q5", number: 5, prompt: "What kind of pollution is mentioned?", answer: "chemical pollution", acceptedAnswers: ["chemical pollution"] },
+    { id: "module-h-reading-q6", number: 6, prompt: "Which crop is named in the vocabulary key?", answer: "cassava", acceptedAnswers: ["cassava"] },
+  ],
+};
+
+export const moduleGListeningPage87: IeltsListeningPractice = {
+  id: "ielts-listening-module-g-page-87-tv-repair",
+  module: "G",
+  title: "Listening Studio: electrical repair call",
+  bookPage: 87,
+  answerKeyPage: 83,
+  sourceNote: "Focus on Academic Skills for IELTS, Module G, Focus on listening 1 page 87. Audio mapping: CD2 Track 2 for setup and CD2 Track 3 for questions 1–10.",
+  instructions: "Dengarkan percakapan tentang TV repair. Jawab detail alamat, nomor, masalah, dan pilihan huruf.",
+  tracks: [
+    { id: "cd2-t02", path: "/audio/ielts/module-g/page-87/cd2-track-02.mp3", label: "CD2 Track 2", role: "Example / setup", durationSeconds: 38.7 },
+    { id: "cd2-t03", path: "/audio/ielts/module-g/page-87/cd2-track-03.mp3", label: "CD2 Track 3", role: "Questions 1–10", durationSeconds: 319.3 },
+  ],
+  questions: [
+    { id: "module-g1-listening-q1", number: 1, prompt: "Customer surname", answer: "Douglass", acceptedAnswers: ["Douglass", "Douglas"] },
+    { id: "module-g1-listening-q2", number: 2, prompt: "Address", answer: "135 Park Hill Avenue", acceptedAnswers: ["135 Park Hill Avenue"] },
+    { id: "module-g1-listening-q3", number: 3, prompt: "Phone number", answer: "765482", acceptedAnswers: ["765482", "765 482"] },
+    { id: "module-g1-listening-q4", number: 4, prompt: "Problem with the TV", answer: "low volume", acceptedAnswers: ["low volume", "volume is low"] },
+    { id: "module-g1-listening-q5", number: 5, prompt: "Cause/problem mentioned", answer: "power cut", acceptedAnswers: ["power cut", "a power cut"] },
+    { id: "module-g1-listening-q6", number: 6, prompt: "Make/model detail", answer: "Schneider SVV5002", acceptedAnswers: ["Schneider SVV5002", "SVV5002", "Schneider"] },
+    { id: "module-g1-listening-q7", number: 7, prompt: "Age", answer: "7 years old", acceptedAnswers: ["7 years old", "7 years"] },
+    { id: "module-g1-listening-q8", number: 8, prompt: "Question 8 option", answer: "B", acceptedAnswers: ["B", "b"] },
+    { id: "module-g1-listening-q9", number: 9, prompt: "Question 9 option", answer: "C", acceptedAnswers: ["C", "c"] },
+    { id: "module-g1-listening-q10", number: 10, prompt: "Question 10 option", answer: "A", acceptedAnswers: ["A", "a"] },
+  ],
+};
+
+export const moduleGListeningPage94: IeltsListeningPractice = {
+  id: "ielts-listening-module-g-page-94-radio-programmes",
+  module: "G",
+  title: "Listening Studio: radio programmes",
+  bookPage: 94,
+  answerKeyPage: 84,
+  sourceNote: "Focus on Academic Skills for IELTS, Module G, Focus on listening 2 page 94. Audio mapping: CD2 Track 4 and CD2 Track 5.",
+  instructions: "Dengarkan radio announcer dan programme extract. Jawab times, programme names, dan details.",
+  tracks: [
+    { id: "cd2-t04", path: "/audio/ielts/module-g/page-94/cd2-track-04.mp3", label: "CD2 Track 4", role: "Questions 1–5", durationSeconds: 156.0 },
+    { id: "cd2-t05", path: "/audio/ielts/module-g/page-94/cd2-track-05.mp3", label: "CD2 Track 5", role: "Questions 6–10", durationSeconds: 172.3 },
+  ],
+  questions: [
+    { id: "module-g2-listening-q1", number: 1, prompt: "Time", answer: "7.50", acceptedAnswers: ["7.50", "7:50"] },
+    { id: "module-g2-listening-q2", number: 2, prompt: "Programme name", answer: "Park Square", acceptedAnswers: ["Park Square"] },
+    { id: "module-g2-listening-q3", number: 3, prompt: "Topic area", answer: "media", acceptedAnswers: ["media"] },
+    { id: "module-g2-listening-q4", number: 4, prompt: "News category", answer: "News and weather", acceptedAnswers: ["News and weather", "news weather"] },
+    { id: "module-g2-listening-q5", number: 5, prompt: "Which letter is mentioned?", answer: "first letter", acceptedAnswers: ["first letter"] },
+    { id: "module-g2-listening-q6", number: 6, prompt: "Social bonds come before ...", answer: "strong", acceptedAnswers: ["strong"] },
+    { id: "module-g2-listening-q7", number: 7, prompt: "Whales and elephants use their ...", answer: "brains", acceptedAnswers: ["brains", "brain"] },
+    { id: "module-g2-listening-q8", number: 8, prompt: "Elephants produce ...", answer: "sound", acceptedAnswers: ["sound"] },
+    { id: "module-g2-listening-q9", number: 9, prompt: "Whale communication includes ...", answer: "silent singing", acceptedAnswers: ["silent singing"] },
+    { id: "module-g2-listening-q10", number: 10, prompt: "Elephants hear through their ...", answer: "feet", acceptedAnswers: ["feet"] },
+  ],
+};
+
+export const moduleHListeningPage99: IeltsListeningPractice = {
+  id: "ielts-listening-module-h-page-99-captive-breeding",
+  module: "H",
+  title: "Listening Studio: captive breeding essay",
+  bookPage: 99,
+  answerKeyPage: 85,
+  sourceNote: "Focus on Academic Skills for IELTS, Module H, Focus on listening page 99. Audio mapping: CD2 Track 9 and CD2 Track 10.",
+  instructions: "Dengarkan tutorial essay tentang captive breeding. Jawab ringkas dan pilihan huruf.",
+  tracks: [
+    { id: "cd2-t09", path: "/audio/ielts/module-h/page-99/cd2-track-09.mp3", label: "CD2 Track 9", role: "Questions 1–5", durationSeconds: 237.4 },
+    { id: "cd2-t10", path: "/audio/ielts/module-h/page-99/cd2-track-10.mp3", label: "CD2 Track 10", role: "Questions 6–10", durationSeconds: 193.7 },
+  ],
+  questions: [
+    { id: "module-h-listening-q1", number: 1, prompt: "Main purpose of the discussion", answer: "to discuss an essay", acceptedAnswers: ["to discuss an essay", "discuss an essay", "essay"] },
+    { id: "module-h-listening-q2", number: 2, prompt: "Topic", answer: "captive breeding", acceptedAnswers: ["captive breeding", "breeding animals in captivity"] },
+    { id: "module-h-listening-q3", number: 3, prompt: "Purpose: prevent species from becoming ...", answer: "extinct", acceptedAnswers: ["extinct"] },
+    { id: "module-h-listening-q4", number: 4, prompt: "Where does the process probably take place?", answer: "zoos", acceptedAnswers: ["zoos", "zoo"] },
+    { id: "module-h-listening-q5", number: 5, prompt: "Problem mentioned", answer: "disease", acceptedAnswers: ["disease"] },
+    { id: "module-h-listening-q6", number: 6, prompt: "Question 6 option", answer: "A", acceptedAnswers: ["A", "a"] },
+    { id: "module-h-listening-q7", number: 7, prompt: "Question 7 option", answer: "B", acceptedAnswers: ["B", "b"] },
+    { id: "module-h-listening-q8", number: 8, prompt: "Question 8 option", answer: "C", acceptedAnswers: ["C", "c"] },
+    { id: "module-h-listening-q9", number: 9, prompt: "Question 9 option", answer: "B", acceptedAnswers: ["B", "b"] },
+    { id: "module-h-listening-q10", number: 10, prompt: "Question 10 option", answer: "A", acceptedAnswers: ["A", "a"] },
   ],
 };
