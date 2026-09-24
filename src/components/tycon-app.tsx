@@ -16,7 +16,7 @@ export type View = "learn" | "map" | "lesson" | "journal" | "settings";
 const freshQuiz = (): QuizState => ({ phase: "idle" });
 function speak(text: string, lang: LanguageCode) { return <span lang={lang}>{text}</span>; }
 
-export default function TyconApp({ initialView = "learn", requestedLessonId }: { initialView?: View; requestedLessonId?: string }) {
+export default function TyconApp({ initialView = "learn", requestedLessonId, showEntryPrompt = false }: { initialView?: View; requestedLessonId?: string; showEntryPrompt?: boolean }) {
   const router = useRouter();
   const [data, setData] = useState<PersistedState>(emptyState);
   const [hydrated, setHydrated] = useState(false);
@@ -58,7 +58,7 @@ export default function TyconApp({ initialView = "learn", requestedLessonId }: {
       } else {
         setView(initialView);
         setQuiz(saved.activeSession ?? freshQuiz());
-        if (initialView === "learn") setShowLearnIntro(true);
+        if (initialView === "learn" && showEntryPrompt) setShowLearnIntro(true);
       }
     } else {
       setView("learn");
@@ -139,7 +139,10 @@ export default function TyconApp({ initialView = "learn", requestedLessonId }: {
   }, [quiz]);
 
   function closeMobileMenu() { setMobileOpen(false); menuButtonRef.current?.focus(); }
-  function closeLearnIntro() { setShowLearnIntro(false); }
+  function closeLearnIntro() {
+    setShowLearnIntro(false);
+    if (showEntryPrompt && window.location.pathname === "/") router.push("/learn");
+  }
   function switchIslandTheme(next?: IslandTheme) {
     const islandThemes: IslandTheme[] = ["classic", "pixel", "angel", "halloween"];
     const value = next ?? islandThemes[(islandThemes.indexOf(islandTheme) + 1) % islandThemes.length];
