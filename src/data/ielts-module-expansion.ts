@@ -17,7 +17,7 @@ export type IeltsAudioTrack = {
 
 export type IeltsListeningPractice = {
   id: string;
-  module: "A" | "B" | "C" | "D";
+  module: "A" | "B" | "C" | "D" | "E" | "F";
   title: string;
   bookPage: number;
   answerKeyPage: number;
@@ -29,7 +29,7 @@ export type IeltsListeningPractice = {
 
 export type IeltsGrammarPractice = {
   id: string;
-  module: "A" | "B" | "C" | "D";
+  module: "A" | "B" | "C" | "D" | "E" | "F";
   title: string;
   bookPage: number;
   answerKeyPage: number;
@@ -39,7 +39,7 @@ export type IeltsGrammarPractice = {
 
 export type IeltsReadingPractice = {
   id: string;
-  module: "B" | "C" | "D";
+  module: "B" | "C" | "D" | "E" | "F";
   title: string;
   bookPage: number;
   answerKeyPage: number;
@@ -165,6 +165,40 @@ export const grammarPractices: readonly IeltsGrammarPractice[] = [
       { id: "grammar-d-q7", number: 7, prompt: "Practice before a performance", answer: "dress rehearsal", acceptedAnswers: ["dress rehearsal", "rehearsal"] },
     ],
   },
+  {
+    id: "ielts-grammar-module-e-language-review",
+    module: "E",
+    title: "Language Review E: water, waste, and environment",
+    bookPage: 71,
+    answerKeyPage: 81,
+    instructions: "Isi vocabulary lingkungan dari Language Review E.",
+    questions: [
+      { id: "grammar-e-q1", number: 1, prompt: "A high standard or characteristic", answer: "quality", acceptedAnswers: ["quality"] },
+      { id: "grammar-e-q2", number: 2, prompt: "A shortage of something needed", answer: "shortage", acceptedAnswers: ["shortage"] },
+      { id: "grammar-e-q3", number: 3, prompt: "Water used for consumption", answer: "drinking", acceptedAnswers: ["drinking", "drinking water"] },
+      { id: "grammar-e-q4", number: 4, prompt: "Material no longer wanted", answer: "waste", acceptedAnswers: ["waste"] },
+      { id: "grammar-e-q5", number: 5, prompt: "Rain from the sky", answer: "rain", acceptedAnswers: ["rain"] },
+      { id: "grammar-e-q6", number: 6, prompt: "System that removes water", answer: "drainage system", acceptedAnswers: ["drainage system"] },
+      { id: "grammar-e-q7", number: 7, prompt: "Facility for reusing materials", answer: "recycling plant", acceptedAnswers: ["recycling plant"] },
+    ],
+  },
+  {
+    id: "ielts-grammar-module-f-language-review",
+    module: "F",
+    title: "Language Review F: university and systems",
+    bookPage: 82,
+    answerKeyPage: 82,
+    instructions: "Isi vocabulary akademik seputar university, study modes, dan systems.",
+    questions: [
+      { id: "grammar-f-q1", number: 1, prompt: "Part of a university organisation", answer: "department", acceptedAnswers: ["department"] },
+      { id: "grammar-f-q2", number: 2, prompt: "Formal university talks", answer: "lectures", acceptedAnswers: ["lectures", "lecture"] },
+      { id: "grammar-f-q3", number: 3, prompt: "Small-group academic meetings", answer: "seminars", acceptedAnswers: ["seminars", "seminar"] },
+      { id: "grammar-f-q4", number: 4, prompt: "Small teaching sessions", answer: "tutorials", acceptedAnswers: ["tutorials", "tutorial"] },
+      { id: "grammar-f-q5", number: 5, prompt: "A unit of learning", answer: "class", acceptedAnswers: ["class"] },
+      { id: "grammar-f-q6", number: 6, prompt: "Learning done by accessing resources yourself", answer: "self-access centre", acceptedAnswers: ["self-access centre", "self-access center"] },
+      { id: "grammar-f-q7", number: 7, prompt: "Academic topics studied", answer: "subjects", acceptedAnswers: ["subjects", "subject"] },
+    ],
+  },
 ];
 
 export const moduleCListeningPage38: IeltsListeningPractice = {
@@ -280,5 +314,95 @@ export const moduleDReadingPage49: IeltsReadingPractice = {
     { id: "module-d-reading-q4", number: 4, prompt: "What levels were indicated in the research findings?", answer: "dust levels", acceptedAnswers: ["dust levels"] },
     { id: "module-d-reading-q5", number: 5, prompt: "Who or what did the research involve besides objects?", answer: "visitors", acceptedAnswers: ["visitors"] },
     { id: "module-d-reading-q6", number: 6, prompt: "What kind of slides are mentioned?", answer: "microscopic slides", acceptedAnswers: ["microscopic slides", "microscope slides"] },
+  ],
+};
+
+export const moduleEReadingPage65: IeltsReadingPractice = {
+  id: "ielts-reading-module-e-page-65-titanic",
+  module: "E",
+  title: "Reading Lab: Titanic and deep-sea research",
+  bookPage: 65,
+  answerKeyPage: 80,
+  instructions: "Latihan ringkas dari Module E Reading. Jawab berdasarkan detail kunci yang sudah diverifikasi.",
+  evidenceSummary: [
+    "The text discusses the Titanic, its size, sinking, casualties, and later underwater filming/research.",
+    "Some claims are True/False, including whether it was the biggest of its time and whether it sank after hitting an iceberg.",
+    "Later questions focus on rusticles, microbes, iron compounds, and paragraph matching.",
+  ],
+  questions: [
+    { id: "module-e-reading-q1", number: 1, prompt: "Was the Titanic the biggest of its time?", answer: "False", acceptedAnswers: ["False", "F"] },
+    { id: "module-e-reading-q2", number: 2, prompt: "Did it sink when it hit an iceberg?", answer: "True", acceptedAnswers: ["True", "T"] },
+    { id: "module-e-reading-q3", number: 3, prompt: "How many people died according to the key?", answer: "1,523", acceptedAnswers: ["1,523", "1523"] },
+    { id: "module-e-reading-q4", number: 4, prompt: "Who went down to the wreck and filmed it?", answer: "James Cameron", acceptedAnswers: ["James Cameron", "Cameron"] },
+    { id: "module-e-reading-q5", number: 5, prompt: "What do rusticles look like?", answer: "underwater icicles", acceptedAnswers: ["underwater icicles", "icicles"] },
+    { id: "module-e-reading-q6", number: 6, prompt: "What are microbes removing from the wreck?", answer: "iron", acceptedAnswers: ["iron"] },
+  ],
+};
+
+export const moduleFReadingPage72: IeltsReadingPractice = {
+  id: "ielts-reading-module-f-page-72-knowledge-workers",
+  module: "F",
+  title: "Reading Lab: knowledge workers",
+  bookPage: 72,
+  answerKeyPage: 81,
+  instructions: "Latihan ringkas dari Module F Reading tentang education, knowledge workers, dan knowledge technologists.",
+  evidenceSummary: [
+    "The reading introduces knowledge workers and knowledge technologists in a changing economy.",
+    "Questions include headings, paragraph matching, and True/False/Not Given style statements.",
+    "Key vocabulary includes continuing education, role of women, and psychological pressures.",
+  ],
+  questions: [
+    { id: "module-f-reading-q1", number: 1, prompt: "What type of worker is central to the text?", answer: "knowledge workers", acceptedAnswers: ["knowledge workers", "knowledge worker"] },
+    { id: "module-f-reading-q2", number: 2, prompt: "What related worker type is mentioned?", answer: "knowledge technologists", acceptedAnswers: ["knowledge technologists", "knowledge technologist"] },
+    { id: "module-f-reading-q3", number: 3, prompt: "What kind of education is highlighted?", answer: "continuing education", acceptedAnswers: ["continuing education"] },
+    { id: "module-f-reading-q4", number: 4, prompt: "Which social topic is listed in the key?", answer: "role of women", acceptedAnswers: ["role of women", "the role of women"] },
+    { id: "module-f-reading-q5", number: 5, prompt: "What kind of pressures are mentioned?", answer: "psychological pressures", acceptedAnswers: ["psychological pressures", "psychological pressure"] },
+    { id: "module-f-reading-q6", number: 6, prompt: "Which answer is No Information in the key for statement 6?", answer: "NG", acceptedAnswers: ["NG", "Not Given", "not given"] },
+  ],
+};
+
+export const moduleEListeningPage60: IeltsListeningPractice = {
+  id: "ielts-listening-module-e-page-60-rotorua-tour",
+  module: "E",
+  title: "Listening Studio: Rotorua tour guide",
+  bookPage: 60,
+  answerKeyPage: 80,
+  sourceNote: "Focus on Academic Skills for IELTS, Module E, Focus on listening page 60. Audio mapping: CD1 Track 17.",
+  instructions: "Dengarkan tour guide tentang Rotorua. Beberapa jawaban berupa huruf pilihan dan beberapa berupa detail singkat.",
+  tracks: [{ id: "cd1-t17", path: "/audio/ielts/module-e/page-60/cd1-track-17.mp3", label: "CD1 Track 17", role: "Questions 1–10", durationSeconds: 341.2 }],
+  questions: [
+    { id: "module-e-listening-q1", number: 1, prompt: "Question 1 option", answer: "B", acceptedAnswers: ["B", "b"] },
+    { id: "module-e-listening-q2", number: 2, prompt: "Question 2 option", answer: "B", acceptedAnswers: ["B", "b"] },
+    { id: "module-e-listening-q3", number: 3, prompt: "Question 3 option", answer: "A", acceptedAnswers: ["A", "a"] },
+    { id: "module-e-listening-q4", number: 4, prompt: "Question 4 option", answer: "A", acceptedAnswers: ["A", "a"] },
+    { id: "module-e-listening-q5", number: 5, prompt: "Question 5 option", answer: "B", acceptedAnswers: ["B", "b"] },
+    { id: "module-e-listening-q6", number: 6, prompt: "Question 6 option", answer: "B", acceptedAnswers: ["B", "b"] },
+    { id: "module-e-listening-q7", number: 7, prompt: "Question 7 option", answer: "A", acceptedAnswers: ["A", "a"] },
+    { id: "module-e-listening-q8", number: 8, prompt: "Year mentioned", answer: "1886", acceptedAnswers: ["1886"] },
+    { id: "module-e-listening-q9", number: 9, prompt: "Adult price", answer: "$25", acceptedAnswers: ["$25", "25"] },
+    { id: "module-e-listening-q10", number: 10, prompt: "Traditional cooking uses hot ...", answer: "stones", acceptedAnswers: ["stones", "stone"] },
+  ],
+};
+
+export const moduleFListeningPage76: IeltsListeningPractice = {
+  id: "ielts-listening-module-f-page-76-computer-facilities",
+  module: "F",
+  title: "Listening Studio: computer facilities survey",
+  bookPage: 76,
+  answerKeyPage: 81,
+  sourceNote: "Focus on Academic Skills for IELTS, Module F, Focus on listening page 76. Audio mapping: CD1 Track 21.",
+  instructions: "Dengarkan tutorial tentang research project dan fasilitas komputer. Jawab detail singkat atau huruf pilihan.",
+  tracks: [{ id: "cd1-t21", path: "/audio/ielts/module-f/page-76/cd1-track-21.mp3", label: "CD1 Track 21", role: "Questions 1–10", durationSeconds: 263.8 }],
+  questions: [
+    { id: "module-f-listening-q1", number: 1, prompt: "Who are the speakers/students involved?", answer: "Sami, Irene and tutor", acceptedAnswers: ["Sami Irene tutor", "Sami Irene and tutor", "Sami, Irene and tutor"] },
+    { id: "module-f-listening-q2", number: 2, prompt: "What is the project about?", answer: "access to computer facilities", acceptedAnswers: ["access to computer facilities", "computer facilities"] },
+    { id: "module-f-listening-q3", number: 3, prompt: "Question 3 option", answer: "A", acceptedAnswers: ["A", "a"] },
+    { id: "module-f-listening-q4", number: 4, prompt: "Question 4 option", answer: "A", acceptedAnswers: ["A", "a"] },
+    { id: "module-f-listening-q5", number: 5, prompt: "Question 5 option", answer: "C", acceptedAnswers: ["C", "c"] },
+    { id: "module-f-listening-q6", number: 6, prompt: "Matching answer 6", answer: "B", acceptedAnswers: ["B", "b"] },
+    { id: "module-f-listening-q7", number: 7, prompt: "Matching answer 7", answer: "D", acceptedAnswers: ["D", "d"] },
+    { id: "module-f-listening-q8", number: 8, prompt: "Matching answer 8", answer: "F", acceptedAnswers: ["F", "f"] },
+    { id: "module-f-listening-q9", number: 9, prompt: "Matching answer 9", answer: "E", acceptedAnswers: ["E", "e"] },
+    { id: "module-f-listening-q10", number: 10, prompt: "Matching answer 10", answer: "G", acceptedAnswers: ["G", "g"] },
   ],
 };
